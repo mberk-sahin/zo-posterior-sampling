@@ -1,0 +1,48 @@
+_BASE_: ../base_unet.yaml
+
+exp_name: p0p2_apmc_red_mri_lines=64_annealing_extra # set the experiment name accordingly
+
+model:
+  name: ZOPMCRED
+  forward_model:
+    num_lines: 64
+    
+  score_fn:
+    network_mode: sigma
+    use_embed: True
+  coeff:
+    name: GeometricAnnealingCoeffModule
+    decay_rate: 0.99
+    min_sigma: 1.0e-2
+  p: 0.2
+  b_small: 1000
+  b_large: 10000
+  mu: 1.0e-4
+  gamma: 5.0e-6
+  alpha: 1.0e+4
+  sigma: 348
+
+inference:
+  is_wandb_logger: False
+  sample_args:
+    tmax: 5000
+    initialization: rand
+  inference_args:
+    start_batch_idx: 28
+    max_num_batches: 29 # 40
+    n_samples: 20
+
+callbacks:
+  scalarcallback:
+    name: LocalScalarCallbackModule
+    vis_freq: 1
+  imagecallback:
+    name: LocalGrayImageCallbackModule
+  timercallback:
+    name: LocalTimerCallbackModule
+  gpucallback:
+    name: LocalGPUCallbackModule
+
+dataset:
+  finetune: True
+  use_saved_data: True
