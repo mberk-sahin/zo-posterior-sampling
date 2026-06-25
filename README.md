@@ -66,7 +66,7 @@ If you find our work interesting, please consider citing
 
 ```
 @inproceedings{
-sahin2026variancereduced,
+sahin2026zerothorder,
 title={Zeroth-Order Non-Log-Concave Sampling with Variance Reduction and Applications to Inverse Problems},
 author={M. Berk Sahin and Behzad Sharif and Abolfazl Hashemi},
 booktitle={Forty-third International Conference on Machine Learning},
